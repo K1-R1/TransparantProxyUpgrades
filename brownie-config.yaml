@@ -18,5 +18,8 @@ networks:
   development:
     local: True
     verify: False
-    
+
+  rinkeby:
+    local: False
+    verify: True
     

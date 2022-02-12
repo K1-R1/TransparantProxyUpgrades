@@ -1,5 +1,5 @@
 from scripts.general_scripts import get_account, encode_function_data
-from brownie import Box, ProxyAdmin
+from brownie import Box, ProxyAdmin, TransparentUpgradeableProxy
 
 
 def main():
@@ -13,4 +13,11 @@ def deploy_box():
 
     #initialiser = box.store, 1
     box_encoded_initialiser_function = encode_function_data()
-    
+
+    proxy = TransparentUpgradeableProxy.deploy(
+        box.address,
+        proxy_admin.address,
+        box_encoded_initialiser_function,
+        {'from': account}
+    )
+    print(f"Proxy deployed to {proxy}, with implemention Box ...\n")
